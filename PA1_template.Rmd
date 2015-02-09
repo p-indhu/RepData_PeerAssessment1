@@ -23,8 +23,7 @@ Data is grouped based on date. Sum of the steps taken on each day(date) is calcu
 library(dplyr)
 ```
 ```{r echo=TRUE}
-data_bydate <- group_by(data, date)
-steps_perday <- summarize(data_bydate, sum(steps, na.rm = TRUE))
+steps_perday <- aggregate(steps ~ date, data=data, sum, na.rm=TRUE)
 colnames(steps_perday) <- c("date", "total_steps")
 ```
 
@@ -104,7 +103,7 @@ newmean <- mean(newsteps_perday$total_steps)
 newmedian <- median(newsteps_perday$total_steps)
 ```
 According to the new dataset, mean total number of steps taken per day is `r newmean` and the median is `r newmedian`. 
-Mean and the median shifted to the right(increased) compared to the dataset with NAs.
+Mean remains the same and the median changed when compared to the dataset with NAs. Median is not same as the mean.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 A new column in added to the new dataset indicating if the day is a weekday or weekend day(With factor levels Weekend and Weekday).  
